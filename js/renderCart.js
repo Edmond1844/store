@@ -3,11 +3,18 @@ import { cart } from "./data.js";
 function renderCart() {
     const cartContainer = document.querySelector(".cart-list");    
     cartContainer.innerHTML = "";
-    console.log(cart)
-    if(cart.length === 0) {
+
+    const storedCart = localStorage.getItem('data');
+    let currentCart = []; 
+
+    if (storedCart) {
+        currentCart = JSON.parse(storedCart); 
+    }
+
+    if (currentCart.length === 0) { 
         cartContainer.textContent = 'Корзина пуста';
     } else {
-        cart.forEach(cartItem => {
+        currentCart.forEach((cartItem, index) => {
             const cartItemWrapper = document.createElement("div");
             cartItemWrapper.classList.add("cart-item");
 
@@ -22,11 +29,16 @@ function renderCart() {
             const removeButton = document.createElement("button");
             removeButton.classList.add("cart-item-remove");
             removeButton.textContent = "Удалить";
+            removeButton.addEventListener('click', function() {
+                currentCart.splice(index, 1);
+                localStorage.setItem('data', JSON.stringify(currentCart)); 
+                renderCart(); 
+            });
 
             cartItemWrapper.append(name, price, removeButton);
             cartContainer.appendChild(cartItemWrapper);
         }); 
     }
-} 
+}
 
 export default renderCart;

@@ -40,7 +40,7 @@ export const catalog = [
     price: 117000,
     img: "./img/mac.jpg",
     inStock: true
-  }
+  }   
 ];
 
 export const cart = [

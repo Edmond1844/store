@@ -3,7 +3,7 @@ import renderCart from "./renderCart.js";
 
 function renderCatalog() {
     const productsContainer = document.querySelector(".product-list");    
-
+    
     catalog.forEach(product => {
         const productCard = document.createElement("div");
         productCard.classList.add("product");
@@ -26,6 +26,8 @@ function renderCatalog() {
         button.textContent = "В корзину";
         button.addEventListener('click', function() {
             cart.push(product);
+            
+            localStorage.setItem('data', JSON.stringify(cart));
             
             renderCart();
         })
